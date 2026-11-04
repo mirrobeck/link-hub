@@ -7,24 +7,24 @@
   <meta name="description" content="Mirazim Ruzimurodov — Brand Designer, young entrepreneur, traveler, athlete." />
   <meta property="og:title" content="Mirazim Ruzimurodov" />
   <meta property="og:description" content="Man on the road. Brand Designer, entrepreneur, traveler, athlete." />
+  <meta property="og:image" content="avatar.jpg" />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#093339" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Plus Jakarta Sans for text + Noto Color Emoji so flags (🇺🇸) render on Windows too -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      // Hover styles apply only on devices with a real mouse,
+      // so buttons never look "stuck/pressed" after a tap on phones.
+      future: { hoverOnlyWhenSupported: true },
       theme: {
         extend: {
-          fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'] },
-          boxShadow: {
-            card: '0 25px 60px -15px rgba(0,0,0,0.45)',
-            pill: '0 4px 14px 0 rgba(0,0,0,0.25)',
-            'pill-hover': '0 10px 28px rgba(0,0,0,0.35)',
-          },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'] },
         },
       },
     };
@@ -36,164 +36,131 @@
       padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
       -webkit-tap-highlight-color: transparent;
       background-color: #093339;
-      background-image:
-        radial-gradient(at 50% 10%, #14535e 0px, transparent 60%),
-        radial-gradient(at 10% 90%, #0d3e46 0px, transparent 50%);
+      background-image: radial-gradient(at 50% 0%, #135058 0px, transparent 65%);
       background-attachment: fixed;
     }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    .animate-slide-up { animation: slideUp .6s cubic-bezier(.16,1,.3,1) both; }
-    .icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .icon-fill { fill: currentColor; stroke: none; }
+    .emoji { font-family: "Apple Color Emoji", "Noto Color Emoji", "Segoe UI Emoji", sans-serif; font-style: normal; line-height: 1; }
+    .icon { display: block; fill: currentColor; }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    .rise { animation: rise .5s cubic-bezier(.16,1,.3,1) both; }
+    @media (prefers-reduced-motion: reduce) { .rise { animation: none; } * { transition: none !important; } }
   </style>
 </head>
 
-<body class="font-sans antialiased text-slate-800 flex flex-col items-center px-4 py-8 sm:py-14">
-
-  <!-- Share button -->
-  <div class="w-full max-w-[460px] flex justify-end mb-4 px-1">
-    <button id="share-btn" type="button"
-      class="flex items-center gap-1.5 bg-black/25 hover:bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-xs font-medium text-white/90 hover:text-white transition active:scale-95"
-      aria-label="Share profile">
-      <span data-icon="share" data-size="14"></span>
-      <span>Share</span>
-    </button>
-  </div>
+<body class="font-sans antialiased text-slate-800 flex flex-col items-center px-6 pt-20 pb-10 sm:pt-24">
 
   <!-- Card -->
-  <main class="w-full max-w-[460px] bg-white rounded-[28px] sm:rounded-[32px] shadow-card p-6 sm:p-8 animate-slide-up">
+  <main class="rise relative w-full max-w-[400px] bg-white rounded-3xl shadow-2xl shadow-black/30 px-5 sm:px-7 pt-16 pb-6">
+
+    <!-- Share (top-right corner of card) -->
+    <button id="share-btn" type="button" aria-label="Share this page"
+      class="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 active:bg-slate-100 transition">
+      <span data-icon="share" data-size="16"></span>
+    </button>
+
+    <!-- Avatar (overlaps the top edge) -->
+    <div class="absolute -top-14 left-1/2 -translate-x-1/2">
+      <img id="profile-avatar" alt="" width="112" height="112"
+        class="w-28 h-28 rounded-full object-cover bg-slate-200 ring-4 ring-white shadow-lg" />
+    </div>
 
     <!-- Profile -->
-    <header class="flex flex-col items-center text-center">
-      <div class="relative mb-4">
-        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-gradient-to-b from-slate-200 to-slate-300 shadow-md">
-          <img id="profile-avatar" alt="" class="w-full h-full object-cover rounded-full bg-slate-100" />
-        </div>
-        <div id="verified-badge" class="absolute bottom-1 right-1 bg-blue-600 text-white p-1 rounded-full border-2 border-white flex">
-          <span data-icon="check" data-size="12" data-stroke="3.5"></span>
-        </div>
-      </div>
-      <h1 id="profile-name" class="text-2xl sm:text-[26px] font-bold text-slate-900 tracking-tight"></h1>
-      <p id="profile-handle" class="text-xs font-semibold text-teal-800 tracking-wide mt-0.5 mb-3"></p>
-      <p id="profile-bio" class="text-sm text-slate-600 leading-relaxed max-w-[370px]"></p>
+    <header class="text-center">
+      <h1 id="profile-name" class="text-[22px] leading-7 font-bold text-slate-900 tracking-tight"></h1>
+      <p id="profile-handle" class="mt-0.5 text-[13px] font-medium text-teal-700"></p>
+      <p id="profile-bio" class="mt-3 text-[14px] leading-[1.6] text-slate-500"></p>
     </header>
 
     <!-- Primary CTA -->
-    <section class="mt-6 sm:mt-7" aria-label="Featured link">
-      <a id="primary-cta"
-        class="group flex items-center justify-between w-full bg-[#111827] hover:bg-black text-white pl-2.5 pr-3 py-2.5 rounded-full shadow-pill hover:shadow-pill-hover hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#093339] focus-visible:ring-offset-2">
-        <span class="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-amber-300 shrink-0">
-          <span data-icon="zap" data-size="18" data-fill="1"></span>
-        </span>
-        <span id="primary-cta-label" class="flex-1 text-center font-bold text-[15px] tracking-tight"></span>
-        <span class="w-8 h-8 rounded-full bg-white/10 group-hover:bg-white/20 flex items-center justify-center shrink-0 transition">
-          <span data-icon="arrowUpRight" data-size="16"></span>
-        </span>
-      </a>
-    </section>
+    <a id="primary-cta"
+      class="mt-5 flex items-center justify-center gap-2 w-full h-12 rounded-full bg-black text-white text-[15px] font-semibold hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/25 active:scale-[0.98] transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2">
+      <span class="emoji text-base" id="primary-cta-emoji" aria-hidden="true"></span>
+      <span id="primary-cta-label"></span>
+    </a>
 
     <!-- Socials -->
-    <section class="mt-7" aria-label="Socials and contacts">
-      <ul id="social-grid" class="flex flex-wrap justify-center gap-y-5"></ul>
-    </section>
+    <ul id="social-grid" class="mt-6 flex flex-wrap justify-center gap-y-4" aria-label="Social profiles and contacts"></ul>
 
     <!-- Secondary links -->
-    <section class="mt-7 pt-7 border-t border-slate-100" aria-label="Links">
-      <div id="secondary-links" class="flex flex-col gap-3"></div>
-    </section>
+    <nav id="secondary-links" class="mt-6 flex flex-col gap-3" aria-label="Applications"></nav>
 
     <!-- Footer -->
-    <footer class="mt-8 pt-5 border-t border-slate-100 text-center">
-      <p id="footer-text" class="text-xs font-medium text-slate-400"></p>
+    <footer class="mt-6 text-center">
+      <p id="footer-text" class="text-xs text-slate-400"></p>
     </footer>
   </main>
 
   <!-- Toast -->
   <div id="toast" role="status" aria-live="polite"
-    class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-4 opacity-0 pointer-events-none bg-slate-900/95 text-white px-4 py-2.5 rounded-full shadow-2xl text-xs font-medium transition-all duration-300 z-50">
-    Link copied to clipboard!
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-4 opacity-0 pointer-events-none bg-slate-900 text-white px-4 py-2.5 rounded-full shadow-2xl text-xs font-medium transition-all duration-300 z-50">
   </div>
 
   <script>
     /* =================================================================
      * ✏️  EDIT EVERYTHING HERE
-     * Replace every "#" with your real link.
      * ================================================================= */
     const CONFIG = {
       profile: {
         name: "Mirazim Ruzimurodov",
         handle: "@itsmirazim",
-        verified: true,
         bio: "Man on the road. Brand Designer('21), Webster University‘27 (Int'l Relations/Econ), young entrepreneur, traveler, athlete. Speaks 5+ languages, badly. More👇🏻",
-        // Put your photo in this folder named "avatar.jpg" (or paste an image URL).
-        // If the photo is missing, your initials are shown instead.
-        avatarUrl: "avatar.jpg",
+        avatarUrl: "avatar.jpg", // replace the file in this folder to change your photo
       },
 
       primaryCta: {
+        emoji: "⚡",
         label: "Telegram Blog",
-        url: "#", // e.g. https://t.me/yourchannel
+        url: "#", // TODO: paste your Telegram channel link, e.g. https://t.me/yourchannel
       },
 
-      // icon: behance | instagram | telegram | linkedin | x | phone | email
+      // icon: behance | instagram | facebook | linkedin | x | telegram | phone | email
       socials: [
-        { label: "Behance",   icon: "behance",   url: "#" }, // https://behance.net/username
-        { label: "Instagram", icon: "instagram", url: "#" }, // https://instagram.com/username
-        { label: "Telegram",  icon: "telegram",  url: "#" }, // https://t.me/username
-        { label: "LinkedIn",  icon: "linkedin",  url: "#" }, // https://linkedin.com/in/username
-        { label: "X",         icon: "x",         url: "#" }, // https://x.com/username
-        { label: "Phone",     icon: "phone",     url: "#" }, // tel:+998901234567
-        { label: "Email",     icon: "email",     url: "#" }, // mailto:you@example.com
+        { label: "Behance",   icon: "behance",   url: "https://www.behance.net/itsmirazim" },
+        { label: "Instagram", icon: "instagram", url: "https://www.instagram.com/itsmirazim/" },
+        { label: "Facebook",  icon: "facebook",  url: "https://www.facebook.com/itsmirazim" },
+        { label: "LinkedIn",  icon: "linkedin",  url: "https://www.linkedin.com/in/itsmirazim/" },
+        { label: "X",         icon: "x",         url: "https://x.com/itsmirazim" },
+        { label: "Phone",     icon: "phone",     url: "tel:+998908729535" },
+        { label: "Email",     icon: "email",     url: "mailto:mirazimruzimurod@gmail.com" },
       ],
 
       links: [
-        { label: "Create your own brand",          url: "#" },
-        { label: "Apply for Work and Travel",      url: "#" },
-        { label: "Apply for your Green Card 2027", url: "#" },
+        { emoji: "🎨", label: "Create your own brand",     url: "https://docs.google.com/forms/d/1Sn5JaO76BXD6r_Ps9B0Yhod3MwLwv6ZHkB-zNtJZa-w/edit" },
+        { emoji: "✈️", label: "Apply for Work and Travel", url: "https://docs.google.com/forms/d/e/1FAIpQLScF1opXaAvNryrn5v6b6m0biiyPZJa0h43_Tm4xzjdXxw_JDQ/viewform" },
+        { emoji: "🇺🇸", label: "Apply for Green Card 2027", url: "https://docs.google.com/forms/d/e/1FAIpQLSdRhcBc4vnKRv6gHNBB6Sp3h4a_mUIhWRaMbS0IAt5jCuClEw/viewform?usp=header" },
       ],
 
       footer: `© ${new Date().getFullYear()} Mirazim Ruzimurodov`,
     };
 
     /* =================================================================
-     * Built-in SVG icons (no external icon library = nothing can break)
+     * Filled icons — Font Awesome Free 7.3.1 (latest), inlined as SVG
      * ================================================================= */
     const ICONS = {
-      instagram: '<rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>',
-      linkedin: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>',
-      x: { fill: true, path: '<path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>' },
-      telegram: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
-      phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
-      email: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
-      share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/>',
-      check: '<path d="M20 6 9 17l-5-5"/>',
-      zap: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
-      arrowUpRight: '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
+      behance:   ["0 0 576 512", "M232 237.2c31.8-15.2 48.4-38.2 48.4-74 0-70.6-52.6-87.8-113.3-87.8l-167.1 0 0 354.4 171.8 0c64.4 0 124.9-30.9 124.9-102.9 0-44.5-21.1-77.4-64.7-89.7zM77.9 135.9l73.1 0c28.1 0 53.4 7.9 53.4 40.5 0 30.1-19.7 42.2-47.5 42.2l-79 0 0-82.7zm83.3 233.7l-83.3 0 0-97.6 84.9 0c34.3 0 56 14.3 56 50.6 0 35.8-25.9 47-57.6 47zM519.7 128.9l-143.7 0 0-34.9 143.7 0 0 34.9zM576 305.2c0-75.9-44.4-139.2-124.9-139.2-78.2 0-131.3 58.8-131.3 135.8 0 79.9 50.3 134.7 131.3 134.7 61.3 0 101-27.6 120.1-86.3l-62.2 0c-6.7 21.9-34.3 33.5-55.7 33.5-41.3 0-63-24.2-63-65.3l185.1 0c.3-4.2 .6-8.7 .6-13.2zM390.4 274c2.3-33.7 24.7-54.8 58.5-54.8 35.4 0 53.2 20.8 56.2 54.8l-114.7 0z"],
+      instagram: ["0 0 448 512", "M224.3 141a115 115 0 1 0 -.6 230 115 115 0 1 0 .6-230zm-.6 40.4a74.6 74.6 0 1 1 .6 149.2 74.6 74.6 0 1 1 -.6-149.2zm93.4-45.1a26.8 26.8 0 1 1 53.6 0 26.8 26.8 0 1 1 -53.6 0zm129.7 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM399 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"],
+      facebook:  ["0 0 512 512", "M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5l0-170.3-52.8 0 0-78.2 52.8 0 0-33.7c0-87.1 39.4-127.5 125-127.5 16.2 0 44.2 3.2 55.7 6.4l0 70.8c-6-.6-16.5-1-29.6-1-42 0-58.2 15.9-58.2 57.2l0 27.8 83.6 0-14.4 78.2-69.3 0 0 175.9C413.8 494.8 512 386.9 512 256z"],
+      linkedin:  ["0 0 448 512", "M100.3 448l-92.9 0 0-299.1 92.9 0 0 299.1zM53.8 108.1C24.1 108.1 0 83.5 0 53.8 0 39.5 5.7 25.9 15.8 15.8s23.8-15.8 38-15.8 27.9 5.7 38 15.8 15.8 23.8 15.8 38c0 29.7-24.1 54.3-53.8 54.3zM447.9 448l-92.7 0 0-145.6c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7l0 148.1-92.8 0 0-299.1 89.1 0 0 40.8 1.3 0c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3l0 164.3-.1 0z"],
+      x:         ["0 0 448 512", "M357.2 48L427.8 48 273.6 224.2 455 464 313 464 201.7 318.6 74.5 464 3.8 464 168.7 275.5-5.2 48 140.4 48 240.9 180.9 357.2 48zM332.4 421.8l39.1 0-252.4-333.8-42 0 255.3 333.8z"],
+      telegram:  ["0 0 512 512", "M256 8a248 248 0 1 0 0 496 248 248 0 1 0 0-496zM371 176.7c-3.7 39.2-19.9 134.4-28.1 178.3-3.5 18.6-10.3 24.8-16.9 25.4-14.4 1.3-25.3-9.5-39.3-18.7-21.8-14.3-34.2-23.2-55.3-37.2-24.5-16.1-8.6-25 5.3-39.5 3.7-3.8 67.1-61.5 68.3-66.7 .2-.7 .3-3.1-1.2-4.4s-3.6-.8-5.1-.5c-2.2 .5-37.1 23.5-104.6 69.1-9.9 6.8-18.9 10.1-26.9 9.9-8.9-.2-25.9-5-38.6-9.1-15.5-5-27.9-7.7-26.8-16.3 .6-4.5 6.7-9 18.4-13.7 72.3-31.5 120.5-52.3 144.6-62.3 68.9-28.6 83.2-33.6 92.5-33.8 2.1 0 6.6 .5 9.6 2.9 2 1.7 3.2 4.1 3.5 6.7 .5 3.2 .6 6.5 .4 9.8z"],
+      phone:     ["0 0 512 512", "M160.2 25C152.3 6.1 131.7-3.9 112.1 1.4l-5.5 1.5c-64.6 17.6-119.8 80.2-103.7 156.4 37.1 175 174.8 312.7 349.8 349.8 76.3 16.2 138.8-39.1 156.4-103.7l1.5-5.5c5.4-19.7-4.7-40.3-23.5-48.1l-97.3-40.5c-16.5-6.9-35.6-2.1-47 11.8l-38.6 47.2C233.9 335.4 177.3 277 144.8 205.3L189 169.3c13.9-11.3 18.6-30.4 11.8-47L160.2 25z"],
+      email:     ["0 0 512 512", "M48 64c-26.5 0-48 21.5-48 48 0 15.1 7.1 29.3 19.2 38.4l208 156c17.1 12.8 40.5 12.8 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48L48 64zM0 196L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-188-198.4 148.8c-34.1 25.6-81.1 25.6-115.2 0L0 196z"],
+      share:     ["0 0 512 512", "M384 192c53 0 96-43 96-96s-43-96-96-96-96 43-96 96c0 5.4 .5 10.8 1.3 16L159.6 184.1c-16.9-15-39.2-24.1-63.6-24.1-53 0-96 43-96 96s43 96 96 96c24.4 0 46.6-9.1 63.6-24.1L289.3 400c-.9 5.2-1.3 10.5-1.3 16 0 53 43 96 96 96s96-43 96-96-43-96-96-96c-24.4 0-46.6 9.1-63.6 24.1L190.7 272c.9-5.2 1.3-10.5 1.3-16s-.5-10.8-1.3-16l129.7-72.1c16.9 15 39.2 24.1 63.6 24.1z"],
     };
 
-    function svg(name, { size = 20, stroke = 2, fill = false } = {}) {
-      if (name === "behance") {
-        return `<span style="font-size:${size * 0.85}px" class="font-extrabold leading-none tracking-tight">Bē</span>`;
-      }
+    function icon(name, size = 20) {
       const def = ICONS[name];
       if (!def) return "";
-      const isFill = fill || (typeof def === "object" && def.fill);
-      const body = typeof def === "object" ? def.path : def;
-      return `<svg class="icon ${isFill ? "icon-fill" : ""}" style="width:${size}px;height:${size}px;stroke-width:${stroke}" viewBox="0 0 24 24" aria-hidden="true">${body}</svg>`;
+      return `<svg class="icon" width="${size}" height="${size}" viewBox="${def[0]}" aria-hidden="true"><path d="${def[1]}"/></svg>`;
     }
 
-    // Replace static <span data-icon="..."> placeholders
-    function hydrateIcons(root = document) {
-      root.querySelectorAll("[data-icon]").forEach((el) => {
-        el.outerHTML = svg(el.dataset.icon, {
-          size: Number(el.dataset.size) || 20,
-          stroke: Number(el.dataset.stroke) || 2,
-          fill: el.dataset.fill === "1",
-        });
+    function hydrateIcons() {
+      document.querySelectorAll("[data-icon]").forEach((el) => {
+        el.outerHTML = icon(el.dataset.icon, Number(el.dataset.size) || 20);
       });
     }
 
-    function applyLinkTarget(a, url) {
+    function setLink(a, url) {
       a.href = url;
       if (/^https?:\/\//i.test(url)) {
         a.target = "_blank";
@@ -204,7 +171,7 @@
     function initialsAvatar(name) {
       const initials = name.split(/\s+/).map((w) => w[0]).slice(0, 2).join("").toUpperCase();
       return "data:image/svg+xml," + encodeURIComponent(
-        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#093339"/><text x="50" y="50" dy=".35em" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="36" fill="#ffffff">${initials}</text></svg>`
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#093339"/><text x="50" y="50" dy=".35em" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="36" fill="#fff">${initials}</text></svg>`
       );
     }
 
@@ -217,43 +184,44 @@
       avatar.alt = profile.name;
       avatar.onerror = () => { avatar.onerror = null; avatar.src = initialsAvatar(profile.name); };
       avatar.src = profile.avatarUrl || initialsAvatar(profile.name);
-      document.getElementById("verified-badge").classList.toggle("hidden", !profile.verified);
       document.getElementById("profile-name").textContent = profile.name;
       document.getElementById("profile-handle").textContent = profile.handle;
       document.getElementById("profile-bio").textContent = profile.bio;
 
       // Primary CTA
-      const cta = document.getElementById("primary-cta");
-      applyLinkTarget(cta, primaryCta.url);
+      setLink(document.getElementById("primary-cta"), primaryCta.url);
+      document.getElementById("primary-cta-emoji").textContent = primaryCta.emoji;
       document.getElementById("primary-cta-label").textContent = primaryCta.label;
 
-      // Socials (4 per row on top, rest centered below)
+      // Socials — 4 per row, remaining row centered
       const grid = document.getElementById("social-grid");
       grid.innerHTML = "";
       socials.forEach((s) => {
         const li = document.createElement("li");
         li.className = "w-1/4 flex justify-center";
         const a = document.createElement("a");
-        applyLinkTarget(a, s.url);
+        setLink(a, s.url);
         a.setAttribute("aria-label", s.label);
         a.className = "group flex flex-col items-center gap-1.5 focus:outline-none";
         a.innerHTML = `
-          <span class="w-[52px] h-[52px] sm:w-14 sm:h-14 rounded-full bg-[#111827] text-white flex items-center justify-center shadow-md group-hover:bg-black group-hover:scale-110 group-hover:shadow-lg group-active:scale-95 group-focus-visible:ring-2 group-focus-visible:ring-[#093339] group-focus-visible:ring-offset-2 transition-all duration-200">
-            ${svg(s.icon)}
+          <span class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center group-hover:scale-105 group-hover:shadow-lg group-active:scale-95 group-focus-visible:ring-2 group-focus-visible:ring-teal-600 group-focus-visible:ring-offset-2 transition duration-200">
+            ${icon(s.icon, 20)}
           </span>
-          <span class="text-xs font-medium text-slate-500 group-hover:text-slate-900 transition-colors">${s.label}</span>`;
+          <span class="text-[11px] font-medium text-slate-500">${s.label}</span>`;
         li.appendChild(a);
         grid.appendChild(li);
       });
 
-      // Secondary links (text only)
+      // Secondary links — emoji on the left, text left-aligned
       const list = document.getElementById("secondary-links");
       list.innerHTML = "";
       links.forEach((l) => {
         const a = document.createElement("a");
-        applyLinkTarget(a, l.url);
-        a.className = "block w-full text-center px-5 py-4 rounded-2xl bg-white border border-slate-200 text-[15px] font-semibold text-slate-800 hover:border-slate-400 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#093339]";
-        a.textContent = l.label;
+        setLink(a, l.url);
+        a.className = "flex items-center gap-3.5 w-full min-h-[56px] px-4 py-3 rounded-2xl bg-white border border-slate-200 text-left hover:border-slate-400 hover:-translate-y-0.5 hover:shadow-md active:bg-slate-50 active:scale-[0.99] transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600";
+        a.innerHTML = `
+          <span class="emoji text-[22px] w-7 text-center shrink-0" aria-hidden="true">${l.emoji}</span>
+          <span class="text-[15px] font-semibold text-slate-800">${l.label}</span>`;
         list.appendChild(a);
       });
 
@@ -261,7 +229,7 @@
       hydrateIcons();
     }
 
-    /* Share / copy */
+    /* Share / copy link */
     function showToast(msg) {
       const t = document.getElementById("toast");
       t.textContent = msg;
@@ -271,16 +239,12 @@
     }
 
     async function share() {
-      const data = { title: CONFIG.profile.name, url: location.href };
       if (navigator.share) {
-        try { await navigator.share(data); return; } catch (e) { if (e.name === "AbortError") return; }
+        try { await navigator.share({ title: CONFIG.profile.name, url: location.href }); return; }
+        catch (e) { if (e.name === "AbortError") return; }
       }
-      try {
-        await navigator.clipboard.writeText(location.href);
-        showToast("Link copied to clipboard!");
-      } catch {
-        showToast(location.href);
-      }
+      try { await navigator.clipboard.writeText(location.href); showToast("Link copied!"); }
+      catch { showToast(location.href); }
     }
 
     document.getElementById("share-btn").addEventListener("click", share);
