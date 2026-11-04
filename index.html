@@ -3,663 +3,288 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Alex Rivera | Personal Link Hub</title>
-  
-  <!-- SEO & Social Meta Tags -->
-  <meta name="description" content="Personal Link Hub & portfolio of Alex Rivera - Senior Product Designer & Art Director." />
-  <meta property="og:title" content="Alex Rivera | Personal Link Hub" />
-  <meta property="og:description" content="Selected works, social channels, and direct contact links." />
+  <title>Mirazim Ruzimurodov</title>
+  <meta name="description" content="Mirazim Ruzimurodov — Brand Designer, young entrepreneur, traveler, athlete." />
+  <meta property="og:title" content="Mirazim Ruzimurodov" />
+  <meta property="og:description" content="Man on the road. Brand Designer, entrepreneur, traveler, athlete." />
   <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#093339" />
 
-  <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
-          },
-          colors: {
-            petrol: {
-              DEFAULT: '#093339',
-              dark: '#051e22',
-              light: '#134e57',
-              surface: '#0f2c33',
-            },
-          },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'] },
           boxShadow: {
-            'card': '0 25px 60px -15px rgba(0, 0, 0, 0.45), 0 0 1px 1px rgba(255, 255, 255, 0.1)',
-            'pill': '0 4px 14px 0 rgba(0, 0, 0, 0.25)',
-            'pill-hover': '0 8px 25px rgba(0, 0, 0, 0.35)',
-            'circle': '0 4px 12px rgba(0, 0, 0, 0.15)',
-          },
-          animation: {
-            'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-            'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-            'pulse-subtle': 'pulseSubtle 2.5s infinite',
-          },
-          keyframes: {
-            fadeIn: {
-              '0%': { opacity: '0' },
-              '100%': { opacity: '1' },
-            },
-            slideUp: {
-              '0%': { opacity: '0', transform: 'translateY(16px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            pulseSubtle: {
-              '0%, 100%': { opacity: '1' },
-              '50%': { opacity: '0.6' },
-            },
+            card: '0 25px 60px -15px rgba(0,0,0,0.45)',
+            pill: '0 4px 14px 0 rgba(0,0,0,0.25)',
+            'pill-hover': '0 10px 28px rgba(0,0,0,0.35)',
           },
         },
       },
     };
   </script>
 
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
-    /* Safe-area inset handling for mobile notches */
     body {
       min-height: 100dvh;
-      padding-top: env(safe-area-inset-top, 0);
-      padding-bottom: env(safe-area-inset-bottom, 0);
-      padding-left: env(safe-area-inset-left, 0);
-      padding-right: env(safe-area-inset-right, 0);
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
       -webkit-tap-highlight-color: transparent;
-    }
-
-    /* Ambient background gradient */
-    .bg-petrol-mesh {
       background-color: #093339;
-      background-image: 
-        radial-gradient(at 50% 15%, #14535e 0px, transparent 65%),
-        radial-gradient(at 10% 85%, #0d3e46 0px, transparent 50%),
-        radial-gradient(at 90% 90%, #062327 0px, transparent 50%);
+      background-image:
+        radial-gradient(at 50% 10%, #14535e 0px, transparent 60%),
+        radial-gradient(at 10% 90%, #0d3e46 0px, transparent 50%);
       background-attachment: fixed;
     }
-
-    /* Subtle custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(9, 51, 57, 0.8);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.35);
-    }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    .animate-slide-up { animation: slideUp .6s cubic-bezier(.16,1,.3,1) both; }
+    .icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-fill { fill: currentColor; stroke: none; }
   </style>
 </head>
 
-<body class="bg-petrol-mesh text-slate-800 font-sans antialiased flex flex-col justify-between items-center px-4 py-8 sm:py-14 select-none min-h-screen">
-  
-  <!-- Subtle Top Decorative Aura -->
-  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-xl h-64 bg-teal-400/10 blur-[100px] pointer-events-none -z-10" aria-hidden="true"></div>
+<body class="font-sans antialiased text-slate-800 flex flex-col items-center px-4 py-8 sm:py-14">
 
-  <!-- Header Utilities Bar (Share / Status) -->
-  <div class="w-full max-w-[460px] flex items-center justify-between mb-4 px-2 text-teal-100/80 animate-fade-in text-xs font-medium">
-    <div id="availability-pill" class="flex items-center gap-2 bg-black/25 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-sm">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span id="availability-text">Available for Q1/Q2</span>
-    </div>
-    
-    <button 
-      id="share-btn" 
-      onclick="handleShareProfile()" 
-      class="flex items-center gap-1.5 bg-black/25 hover:bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 shadow-sm transition-all duration-200 active:scale-95 text-white/90 hover:text-white"
-      title="Share Profile"
-      aria-label="Share Profile"
-    >
-      <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+  <!-- Share button -->
+  <div class="w-full max-w-[460px] flex justify-end mb-4 px-1">
+    <button id="share-btn" type="button"
+      class="flex items-center gap-1.5 bg-black/25 hover:bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-xs font-medium text-white/90 hover:text-white transition active:scale-95"
+      aria-label="Share profile">
+      <span data-icon="share" data-size="14"></span>
       <span>Share</span>
     </button>
   </div>
 
-  <!-- Main Card Container -->
-  <main class="w-full max-w-[460px] bg-white rounded-[28px] sm:rounded-[32px] shadow-card p-6 sm:p-8 animate-slide-up relative overflow-hidden transition-all duration-300 border border-white/80">
-    
-    <!-- Top Card Micro Accent Accent Light -->
-    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 bg-slate-100/80 rounded-full blur-2xl pointer-events-none" aria-hidden="true"></div>
+  <!-- Card -->
+  <main class="w-full max-w-[460px] bg-white rounded-[28px] sm:rounded-[32px] shadow-card p-6 sm:p-8 animate-slide-up">
 
-    <!-- 1. Profile Header -->
-    <header class="flex flex-col items-center text-center relative z-10 pt-1">
-      <!-- Avatar with refined rings -->
-      <div class="relative group cursor-pointer mb-4">
-        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-gradient-to-b from-slate-200 to-slate-300 shadow-md transition-transform duration-300 group-hover:scale-[1.03]">
-          <img
-            id="profile-avatar"
-            src=""
-            alt=""
-            class="w-full h-full object-cover rounded-full bg-slate-100"
-            loading="eager"
-          />
+    <!-- Profile -->
+    <header class="flex flex-col items-center text-center">
+      <div class="relative mb-4">
+        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-gradient-to-b from-slate-200 to-slate-300 shadow-md">
+          <img id="profile-avatar" alt="" class="w-full h-full object-cover rounded-full bg-slate-100" />
         </div>
-        <!-- Verified / Pro Badge -->
-        <div id="verified-badge" class="absolute bottom-1 right-1 bg-blue-600 text-white p-1 rounded-full border-2 border-white shadow-sm flex items-center justify-center">
-          <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+        <div id="verified-badge" class="absolute bottom-1 right-1 bg-blue-600 text-white p-1 rounded-full border-2 border-white flex">
+          <span data-icon="check" data-size="12" data-stroke="3.5"></span>
         </div>
       </div>
-
-      <!-- User Name & Handle -->
-      <h1 id="profile-name" class="text-2xl sm:text-[26px] font-bold text-slate-900 tracking-tight flex items-center justify-center gap-1.5">
-        <!-- Rendered by JS -->
-      </h1>
-      <p id="profile-handle" class="text-xs font-semibold text-teal-800 tracking-wide uppercase mt-0.5 mb-2">
-        <!-- Rendered by JS -->
-      </p>
-
-      <!-- Bio / Tagline -->
-      <p id="profile-bio" class="text-sm text-slate-600 leading-relaxed max-w-[360px] font-normal">
-        <!-- Rendered by JS -->
-      </p>
+      <h1 id="profile-name" class="text-2xl sm:text-[26px] font-bold text-slate-900 tracking-tight"></h1>
+      <p id="profile-handle" class="text-xs font-semibold text-teal-800 tracking-wide mt-0.5 mb-3"></p>
+      <p id="profile-bio" class="text-sm text-slate-600 leading-relaxed max-w-[370px]"></p>
     </header>
 
-    <!-- 2. Primary Featured CTA (Pill Button) -->
-    <section class="mt-6 sm:mt-7" aria-label="Featured Action">
-      <a
-        id="primary-cta-link"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group relative flex items-center justify-between w-full bg-[#111827] hover:bg-black text-white px-5 py-3.5 sm:py-4 rounded-full shadow-pill hover:shadow-pill-hover hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#093339] focus:ring-offset-2 overflow-hidden"
-      >
-        <!-- Subtle sheen animation on hover -->
-        <div class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-25deg] -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out pointer-events-none"></div>
-
-        <div class="flex items-center gap-3 relative z-10 min-w-0">
-          <div class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-200">
-            <span id="primary-cta-icon-container" class="text-amber-300 flex items-center justify-center">
-              <i data-lucide="zap" class="w-4 h-4 fill-amber-300 text-amber-300"></i>
-            </span>
-          </div>
-          <div class="text-left truncate">
-            <div class="flex items-center gap-2">
-              <span id="primary-cta-label" class="font-bold text-sm tracking-tight text-white truncate">
-                <!-- Rendered by JS -->
-              </span>
-              <span id="primary-cta-badge" class="bg-amber-400/20 text-amber-300 border border-amber-400/30 text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded-full">
-                NEW
-              </span>
-            </div>
-            <p id="primary-cta-subtitle" class="text-[11px] text-slate-300 truncate">
-              <!-- Rendered by JS -->
-            </p>
-          </div>
-        </div>
-
-        <div class="relative z-10 shrink-0 ml-2 w-7 h-7 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-1 group-hover:bg-white/20 transition-all duration-200">
-          <i data-lucide="arrow-up-right" class="w-4 h-4 text-white/90"></i>
-        </div>
+    <!-- Primary CTA -->
+    <section class="mt-6 sm:mt-7" aria-label="Featured link">
+      <a id="primary-cta"
+        class="group flex items-center justify-between w-full bg-[#111827] hover:bg-black text-white pl-2.5 pr-3 py-2.5 rounded-full shadow-pill hover:shadow-pill-hover hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#093339] focus-visible:ring-offset-2">
+        <span class="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-amber-300 shrink-0">
+          <span data-icon="zap" data-size="18" data-fill="1"></span>
+        </span>
+        <span id="primary-cta-label" class="flex-1 text-center font-bold text-[15px] tracking-tight"></span>
+        <span class="w-8 h-8 rounded-full bg-white/10 group-hover:bg-white/20 flex items-center justify-center shrink-0 transition">
+          <span data-icon="arrowUpRight" data-size="16"></span>
+        </span>
       </a>
     </section>
 
-    <!-- 3. Quick-Action Social Grid (3x2) -->
-    <section class="mt-6 sm:mt-7" aria-label="Quick Social & Direct Contacts">
-      <div id="quick-action-grid" class="grid grid-cols-3 gap-y-4 gap-x-2 justify-items-center">
-        <!-- Rendered dynamically by JS -->
-      </div>
+    <!-- Socials -->
+    <section class="mt-7" aria-label="Socials and contacts">
+      <ul id="social-grid" class="flex flex-wrap justify-center gap-y-5"></ul>
     </section>
 
-    <!-- Divider Line -->
-    <div class="my-6 sm:my-7 border-t border-slate-100 relative">
-      <span class="absolute left-1/2 -top-2.5 -translate-x-1/2 bg-white px-3 text-[11px] font-semibold tracking-wider uppercase text-slate-400">
-        Explore Links
-      </span>
-    </div>
-
-    <!-- 4. Secondary Action List (Stacked Vertical) -->
-    <section aria-label="Secondary Actions">
-      <div id="secondary-links-container" class="flex flex-col gap-2.5">
-        <!-- Rendered dynamically by JS -->
-      </div>
+    <!-- Secondary links -->
+    <section class="mt-7 pt-7 border-t border-slate-100" aria-label="Links">
+      <div id="secondary-links" class="flex flex-col gap-3"></div>
     </section>
 
-    <!-- In-Card Footer Note -->
-    <div class="mt-8 pt-5 border-t border-slate-100 flex flex-col items-center justify-center text-center">
-      <p id="footer-copyright" class="text-xs font-semibold text-slate-500">
-        <!-- Rendered by JS -->
-      </p>
-      <p id="footer-tagline" class="text-[11px] text-slate-400 mt-0.5 flex items-center gap-1">
-        <!-- Rendered by JS -->
-      </p>
-    </div>
+    <!-- Footer -->
+    <footer class="mt-8 pt-5 border-t border-slate-100 text-center">
+      <p id="footer-text" class="text-xs font-medium text-slate-400"></p>
+    </footer>
   </main>
 
-  <!-- Outside Card Footer (Teletype / Minimalist Branding) -->
-  <footer class="mt-6 mb-2 text-center text-xs text-teal-100/60 animate-fade-in flex items-center gap-2">
-    <span>Crafted with precision</span>
-    <span class="w-1 h-1 rounded-full bg-teal-400/50"></span>
-    <button onclick="handleCopyCurrentUrl()" class="hover:text-teal-200 underline underline-offset-2 transition-colors">
-      Copy Page Link
-    </button>
-  </footer>
-
-  <!-- Toast Notification -->
-  <div
-    id="toast"
-    role="status"
-    aria-live="polite"
-    class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/95 text-white backdrop-blur-md px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 text-xs font-medium opacity-0 translate-y-4 pointer-events-none transition-all duration-300 z-50 border border-white/10"
-  >
-    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>
-    <span id="toast-message">Link copied to clipboard!</span>
+  <!-- Toast -->
+  <div id="toast" role="status" aria-live="polite"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-4 opacity-0 pointer-events-none bg-slate-900/95 text-white px-4 py-2.5 rounded-full shadow-2xl text-xs font-medium transition-all duration-300 z-50">
+    Link copied to clipboard!
   </div>
 
-  <!-- ================================================================= -->
-  <!-- CONFIGURATION & APP LOGIC                                         -->
-  <!-- Customize all profile details, URLs, and icons right here!        -->
-  <!-- ================================================================= -->
   <script>
-    /**
-     * PERSONAL LINK HUB DATA CONFIGURATION
-     * Simply edit this object to adapt the page to your own brand & links.
-     */
+    /* =================================================================
+     * ✏️  EDIT EVERYTHING HERE
+     * Replace every "#" with your real link.
+     * ================================================================= */
     const CONFIG = {
       profile: {
-        name: "Alex Rivera",
-        handle: "@alexrivera.design",
+        name: "Mirazim Ruzimurodov",
+        handle: "@itsmirazim",
         verified: true,
-        title: "Senior Product Designer & Art Director",
-        bio: "Crafting digital experiences, high-conversion design systems, and brand stories. Open for select advisory & design projects.",
-        // Avatar: High-res square image
-        avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&h=400&q=85",
-        status: {
-          visible: true,
-          text: "Available for Q1/Q2 Projects",
-          dotColor: "bg-emerald-400",
-        },
+        bio: "Man on the road. Brand Designer('21), Webster University‘27 (Int'l Relations/Econ), young entrepreneur, traveler, athlete. Speaks 5+ languages, badly. More👇🏻",
+        // Put your photo in this folder named "avatar.jpg" (or paste an image URL).
+        // If the photo is missing, your initials are shown instead.
+        avatarUrl: "avatar.jpg",
       },
 
-      // 2. Primary Featured CTA (Top prominent pill button)
       primaryCta: {
-        label: "Telegram Channel & Insights",
-        subtitle: "Daily design thoughts, UI teardowns & freebies",
-        badge: "HOT",
-        icon: "send", // Lucide icon name
-        url: "https://t.me/yourtelegramchannel",
+        label: "Telegram Blog",
+        url: "#", // e.g. https://t.me/yourchannel
       },
 
-      // 3. Quick-Action Social Grid (3x2 grid of circular icon buttons)
-      quickActions: [
-        {
-          id: "behance",
-          label: "Behance",
-          icon: "palette",
-          url: "https://behance.net",
-          isExternal: true,
-        },
-        {
-          id: "phone",
-          label: "Call",
-          icon: "phone",
-          url: "tel:+14155552671",
-          isExternal: false,
-        },
-        {
-          id: "instagram",
-          label: "Instagram",
-          icon: "instagram",
-          url: "https://instagram.com",
-          isExternal: true,
-        },
-        {
-          id: "email",
-          label: "Email",
-          icon: "mail",
-          url: "mailto:alex.rivera@example.com",
-          isExternal: false,
-        },
-        {
-          id: "telegram",
-          label: "Telegram",
-          icon: "message-circle",
-          url: "https://t.me/yourpersonalhandle",
-          isExternal: true,
-        },
-        {
-          id: "linkedin",
-          label: "LinkedIn",
-          icon: "linkedin",
-          url: "https://linkedin.com",
-          isExternal: true,
-        },
+      // icon: behance | instagram | telegram | linkedin | x | phone | email
+      socials: [
+        { label: "Behance",   icon: "behance",   url: "#" }, // https://behance.net/username
+        { label: "Instagram", icon: "instagram", url: "#" }, // https://instagram.com/username
+        { label: "Telegram",  icon: "telegram",  url: "#" }, // https://t.me/username
+        { label: "LinkedIn",  icon: "linkedin",  url: "#" }, // https://linkedin.com/in/username
+        { label: "X",         icon: "x",         url: "#" }, // https://x.com/username
+        { label: "Phone",     icon: "phone",     url: "#" }, // tel:+998901234567
+        { label: "Email",     icon: "email",     url: "#" }, // mailto:you@example.com
       ],
 
-      // 4. Secondary Action List (Stacked vertical pills)
-      secondaryLinks: [
-        {
-          id: "portfolio",
-          title: "Selected Design Case Studies",
-          subtitle: "Fintech, Web3 & SaaS product design portfolio",
-          emoji: "⚡",
-          icon: "sparkles",
-          url: "https://example.com/case-studies",
-          highlight: true,
-          tag: "Featured",
-        },
-        {
-          id: "travel",
-          title: "Work & Travel Journal",
-          subtitle: "Visual diaries, remote setups & nomadic guides",
-          emoji: "✈️",
-          icon: "compass",
-          url: "https://example.com/travel",
-          highlight: false,
-        },
-        {
-          id: "mentorship",
-          title: "1-on-1 Mentorship & Portfolio Review",
-          subtitle: "Book a 30-min strategy session via Cal.com",
-          emoji: "🗓️",
-          icon: "calendar",
-          url: "https://cal.com",
-          highlight: false,
-          tag: "3 Slots",
-        },
-        {
-          id: "design-system",
-          title: "Minimal Design System for Figma",
-          subtitle: "Over 800+ pre-built components and tokens",
-          emoji: "🎨",
-          icon: "layout-grid",
-          url: "https://figma.com",
-          highlight: false,
-        },
-        {
-          id: "reading-list",
-          title: "My 2025 Recommended Bookshelf",
-          subtitle: "Architecture, typography, cognitive psychology",
-          emoji: "📚",
-          icon: "book-open",
-          url: "https://example.com/books",
-          highlight: false,
-        },
+      links: [
+        { label: "Create your own brand",          url: "#" },
+        { label: "Apply for Work and Travel",      url: "#" },
+        { label: "Apply for your Green Card 2027", url: "#" },
       ],
 
-      // 5. Footer Information
-      footer: {
-        copyright: `© ${new Date().getFullYear()} Alex Rivera. All rights reserved.`,
-        tagline: "Designed with modern Teletype.link aesthetics",
-      },
+      footer: `© ${new Date().getFullYear()} Mirazim Ruzimurodov`,
     };
 
-    /**
-     * APPLICATION INITIALIZATION & DOM RENDERING
-     */
-    function initApp() {
-      renderProfileHeader();
-      renderPrimaryCta();
-      renderQuickActions();
-      renderSecondaryLinks();
-      renderFooter();
-      
-      // Initialize Lucide SVG Icons
-      lucide.createIcons();
-    }
+    /* =================================================================
+     * Built-in SVG icons (no external icon library = nothing can break)
+     * ================================================================= */
+    const ICONS = {
+      instagram: '<rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/>',
+      linkedin: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>',
+      x: { fill: true, path: '<path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>' },
+      telegram: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
+      phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
+      email: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+      share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/>',
+      check: '<path d="M20 6 9 17l-5-5"/>',
+      zap: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+      arrowUpRight: '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
+    };
 
-    /**
-     * Render Profile Header Section
-     */
-    function renderProfileHeader() {
-      const { profile } = CONFIG;
-      
-      // Avatar
-      const avatarEl = document.getElementById("profile-avatar");
-      avatarEl.src = profile.avatarUrl;
-      avatarEl.alt = `${profile.name}'s profile picture`;
-      avatarEl.onerror = () => {
-        avatarEl.onerror = null;
-        avatarEl.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230f2c33'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%236ee7b7'/%3E%3Cpath d='M22 86 C22 64 35 58 50 58 C65 58 78 64 78 86 Z' fill='%236ee7b7'/%3E%3C/svg%3E";
-      };
-
-      // Verified Badge
-      const verifiedEl = document.getElementById("verified-badge");
-      if (!profile.verified) {
-        verifiedEl.classList.add("hidden");
+    function svg(name, { size = 20, stroke = 2, fill = false } = {}) {
+      if (name === "behance") {
+        return `<span style="font-size:${size * 0.85}px" class="font-extrabold leading-none tracking-tight">Bē</span>`;
       }
-
-      // Name & Handle
-      const nameEl = document.getElementById("profile-name");
-      nameEl.textContent = profile.name;
-
-      const handleEl = document.getElementById("profile-handle");
-      handleEl.textContent = profile.handle;
-
-      // Bio
-      const bioEl = document.getElementById("profile-bio");
-      bioEl.textContent = profile.bio;
-
-      // Header Availability status pill
-      const availabilityPill = document.getElementById("availability-pill");
-      const availabilityText = document.getElementById("availability-text");
-      if (profile.status && profile.status.visible) {
-        availabilityText.textContent = profile.status.text;
-      } else {
-        availabilityPill.classList.add("hidden");
-      }
+      const def = ICONS[name];
+      if (!def) return "";
+      const isFill = fill || (typeof def === "object" && def.fill);
+      const body = typeof def === "object" ? def.path : def;
+      return `<svg class="icon ${isFill ? "icon-fill" : ""}" style="width:${size}px;height:${size}px;stroke-width:${stroke}" viewBox="0 0 24 24" aria-hidden="true">${body}</svg>`;
     }
 
-    /**
-     * Render Primary CTA
-     */
-    function renderPrimaryCta() {
-      const { primaryCta } = CONFIG;
-      if (!primaryCta) return;
-
-      const linkEl = document.getElementById("primary-cta-link");
-      linkEl.href = primaryCta.url;
-
-      const labelEl = document.getElementById("primary-cta-label");
-      labelEl.textContent = primaryCta.label;
-
-      const subEl = document.getElementById("primary-cta-subtitle");
-      subEl.textContent = primaryCta.subtitle;
-
-      const badgeEl = document.getElementById("primary-cta-badge");
-      if (primaryCta.badge) {
-        badgeEl.textContent = primaryCta.badge;
-      } else {
-        badgeEl.classList.add("hidden");
-      }
-
-      const iconContainer = document.getElementById("primary-cta-icon-container");
-      iconContainer.innerHTML = `<i data-lucide="${primaryCta.icon || 'zap'}" class="w-4 h-4 fill-amber-300 text-amber-300"></i>`;
-    }
-
-    /**
-     * Render Quick-Action Social 3x2 Grid
-     */
-    function renderQuickActions() {
-      const gridContainer = document.getElementById("quick-action-grid");
-      gridContainer.innerHTML = "";
-
-      CONFIG.quickActions.forEach((item) => {
-        const link = document.createElement("a");
-        link.href = item.url;
-        link.className = "flex flex-col items-center gap-1.5 group p-1 focus:outline-none";
-        link.setAttribute("aria-label", item.label);
-
-        if (item.isExternal) {
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-        }
-
-        link.innerHTML = `
-          <div class="w-13 h-13 sm:w-14 sm:h-14 w-[52px] h-[52px] rounded-full bg-[#111827] text-white flex items-center justify-center shadow-circle group-hover:scale-110 group-hover:bg-black group-hover:shadow-lg transition-all duration-200 group-active:scale-95 border border-slate-700/30">
-            <i data-lucide="${item.icon}" class="w-5 h-5 text-white/90 group-hover:text-white transition-colors"></i>
-          </div>
-          <span class="text-[12px] font-medium text-slate-600 group-hover:text-slate-900 transition-colors">
-            ${item.label}
-          </span>
-        `;
-
-        gridContainer.appendChild(link);
-      });
-    }
-
-    /**
-     * Render Secondary Action List (Stacked Vertical)
-     */
-    function renderSecondaryLinks() {
-      const container = document.getElementById("secondary-links-container");
-      container.innerHTML = "";
-
-      CONFIG.secondaryLinks.forEach((item) => {
-        const link = document.createElement("a");
-        link.href = item.url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.className = `group flex items-center justify-between w-full px-4 sm:px-5 py-3 sm:py-3.5 rounded-2xl sm:rounded-full border transition-all duration-200 active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-[#093339] focus:ring-offset-1 ${
-          item.highlight
-            ? "bg-slate-50 border-slate-300/90 shadow-sm hover:border-slate-500 hover:shadow-md hover:bg-white"
-            : "bg-white border-slate-200/90 hover:border-slate-400 hover:bg-slate-50/80 hover:shadow-sm"
-        }`;
-
-        link.innerHTML = `
-          <div class="flex items-center gap-3 min-w-0 pr-2">
-            <!-- Left Icon / Emoji Badge -->
-            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-sm shrink-0 border border-slate-200/70 group-hover:scale-105 group-hover:bg-slate-200/70 transition-all duration-200">
-              ${item.emoji ? `<span>${item.emoji}</span>` : `<i data-lucide="${item.icon || 'link'}" class="w-4 h-4 text-slate-700"></i>`}
-            </div>
-            
-            <!-- Title & Subtitle -->
-            <div class="text-left truncate">
-              <div class="flex items-center gap-2">
-                <span class="text-[13px] sm:text-sm font-semibold text-slate-800 group-hover:text-slate-950 transition-colors truncate">
-                  ${item.title}
-                </span>
-                ${
-                  item.tag
-                    ? `<span class="bg-slate-900 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shrink-0 tracking-wide">${item.tag}</span>`
-                    : ""
-                }
-              </div>
-              ${
-                item.subtitle
-                  ? `<p class="text-[11px] text-slate-500 group-hover:text-slate-600 truncate transition-colors">${item.subtitle}</p>`
-                  : ""
-              }
-            </div>
-          </div>
-
-          <!-- Right Arrow -->
-          <div class="shrink-0 text-slate-400 group-hover:text-slate-800 group-hover:translate-x-0.5 transition-all duration-200">
-            <i data-lucide="chevron-right" class="w-4 h-4"></i>
-          </div>
-        `;
-
-        container.appendChild(link);
-      });
-    }
-
-    /**
-     * Render Footer
-     */
-    function renderFooter() {
-      document.getElementById("footer-copyright").textContent = CONFIG.footer.copyright;
-      document.getElementById("footer-tagline").textContent = CONFIG.footer.tagline;
-    }
-
-    /**
-     * Native Web Share API or Clipboard Copy Handler
-     */
-    async function handleShareProfile() {
-      const shareData = {
-        title: `${CONFIG.profile.name} - Link Hub`,
-        text: CONFIG.profile.bio,
-        url: window.location.href,
-      };
-
-      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-        try {
-          await navigator.share(shareData);
-        } catch (err) {
-          if (err.name !== "AbortError") {
-            copyToClipboard(window.location.href);
-          }
-        }
-      } else {
-        copyToClipboard(window.location.href);
-      }
-    }
-
-    /**
-     * Copy URL explicitly
-     */
-    function handleCopyCurrentUrl() {
-      copyToClipboard(window.location.href);
-    }
-
-    /**
-     * Utility: Copy text to clipboard and trigger sleek toast
-     */
-    function copyToClipboard(text) {
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(text).then(() => {
-          showToast("Profile link copied to clipboard!");
-        }).catch(() => {
-          fallbackCopyText(text);
+    // Replace static <span data-icon="..."> placeholders
+    function hydrateIcons(root = document) {
+      root.querySelectorAll("[data-icon]").forEach((el) => {
+        el.outerHTML = svg(el.dataset.icon, {
+          size: Number(el.dataset.size) || 20,
+          stroke: Number(el.dataset.stroke) || 2,
+          fill: el.dataset.fill === "1",
         });
-      } else {
-        fallbackCopyText(text);
+      });
+    }
+
+    function applyLinkTarget(a, url) {
+      a.href = url;
+      if (/^https?:\/\//i.test(url)) {
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
       }
     }
 
-    function fallbackCopyText(text) {
-      const textArea = document.createElement("textarea");
-      textArea.value = text;
-      textArea.style.position = "fixed";
-      textArea.style.left = "-999999px";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
+    function initialsAvatar(name) {
+      const initials = name.split(/\s+/).map((w) => w[0]).slice(0, 2).join("").toUpperCase();
+      return "data:image/svg+xml," + encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#093339"/><text x="50" y="50" dy=".35em" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="36" fill="#ffffff">${initials}</text></svg>`
+      );
+    }
+
+    /* ================================================================= */
+    function render() {
+      const { profile, primaryCta, socials, links, footer } = CONFIG;
+
+      // Profile
+      const avatar = document.getElementById("profile-avatar");
+      avatar.alt = profile.name;
+      avatar.onerror = () => { avatar.onerror = null; avatar.src = initialsAvatar(profile.name); };
+      avatar.src = profile.avatarUrl || initialsAvatar(profile.name);
+      document.getElementById("verified-badge").classList.toggle("hidden", !profile.verified);
+      document.getElementById("profile-name").textContent = profile.name;
+      document.getElementById("profile-handle").textContent = profile.handle;
+      document.getElementById("profile-bio").textContent = profile.bio;
+
+      // Primary CTA
+      const cta = document.getElementById("primary-cta");
+      applyLinkTarget(cta, primaryCta.url);
+      document.getElementById("primary-cta-label").textContent = primaryCta.label;
+
+      // Socials (4 per row on top, rest centered below)
+      const grid = document.getElementById("social-grid");
+      grid.innerHTML = "";
+      socials.forEach((s) => {
+        const li = document.createElement("li");
+        li.className = "w-1/4 flex justify-center";
+        const a = document.createElement("a");
+        applyLinkTarget(a, s.url);
+        a.setAttribute("aria-label", s.label);
+        a.className = "group flex flex-col items-center gap-1.5 focus:outline-none";
+        a.innerHTML = `
+          <span class="w-[52px] h-[52px] sm:w-14 sm:h-14 rounded-full bg-[#111827] text-white flex items-center justify-center shadow-md group-hover:bg-black group-hover:scale-110 group-hover:shadow-lg group-active:scale-95 group-focus-visible:ring-2 group-focus-visible:ring-[#093339] group-focus-visible:ring-offset-2 transition-all duration-200">
+            ${svg(s.icon)}
+          </span>
+          <span class="text-xs font-medium text-slate-500 group-hover:text-slate-900 transition-colors">${s.label}</span>`;
+        li.appendChild(a);
+        grid.appendChild(li);
+      });
+
+      // Secondary links (text only)
+      const list = document.getElementById("secondary-links");
+      list.innerHTML = "";
+      links.forEach((l) => {
+        const a = document.createElement("a");
+        applyLinkTarget(a, l.url);
+        a.className = "block w-full text-center px-5 py-4 rounded-2xl bg-white border border-slate-200 text-[15px] font-semibold text-slate-800 hover:border-slate-400 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#093339]";
+        a.textContent = l.label;
+        list.appendChild(a);
+      });
+
+      document.getElementById("footer-text").textContent = footer;
+      hydrateIcons();
+    }
+
+    /* Share / copy */
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.remove("opacity-0", "translate-y-4");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => t.classList.add("opacity-0", "translate-y-4"), 2400);
+    }
+
+    async function share() {
+      const data = { title: CONFIG.profile.name, url: location.href };
+      if (navigator.share) {
+        try { await navigator.share(data); return; } catch (e) { if (e.name === "AbortError") return; }
+      }
       try {
-        document.execCommand("copy");
-        showToast("Profile link copied to clipboard!");
-      } catch (err) {
-        showToast("Unable to copy link automatically.");
+        await navigator.clipboard.writeText(location.href);
+        showToast("Link copied to clipboard!");
+      } catch {
+        showToast(location.href);
       }
-      document.body.removeChild(textArea);
     }
 
-    /**
-     * Toast alert helper
-     */
-    let toastTimeout;
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      const messageEl = document.getElementById("toast-message");
-      
-      messageEl.textContent = message;
-      toast.classList.remove("opacity-0", "translate-y-4", "pointer-events-none");
-      toast.classList.add("opacity-100", "translate-y-0");
-
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove("opacity-100", "translate-y-0");
-        toast.classList.add("opacity-0", "translate-y-4", "pointer-events-none");
-      }, 2600);
-    }
-
-    // Run when DOM is ready
-    document.addEventListener("DOMContentLoaded", initApp);
+    document.getElementById("share-btn").addEventListener("click", share);
+    render();
   </script>
 </body>
 </html>
-
