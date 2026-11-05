@@ -4,17 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Mirazim Ruzimurodov</title>
-  <meta name="description" content="Mirazim Ruzimurodov — Brand Designer, young entrepreneur, traveler, athlete." />
+  <meta name="description" content="" />
   <meta property="og:title" content="Mirazim Ruzimurodov" />
-  <meta property="og:description" content="Man on the road. Brand Designer, entrepreneur, traveler, athlete." />
+  <meta property="og:description" content="" />
+  <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="avatar.jpg" />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#093339" />
 
+  <!-- Translations + apply saved language before first paint (no flash of English) -->
+  <script src="i18n.js"></script>
+  <script>
+    (function () {
+      var I = window.I18N, lang = I.resolveLang();
+      window.__LANG = lang;
+      document.documentElement.lang = lang;
+      document.title = I.t("meta.title", lang);
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Plus Jakarta Sans for text + Noto Color Emoji so flags (🇺🇸) render on Windows too -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet" />
+  <!-- Plus Jakarta Sans for text; Manrope supplies matching Cyrillic glyphs (Jakarta has none);
+       Noto Color Emoji so flags (🇺🇸) render on Windows too -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -24,7 +37,7 @@
       future: { hoverOnlyWhenSupported: true },
       theme: {
         extend: {
-          fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'] },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', '"Manrope"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'] },
         },
       },
     };
@@ -43,6 +56,60 @@
     .icon { display: block; fill: currentColor; }
     @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
     .rise { animation: rise .5s cubic-bezier(.16,1,.3,1) both; }
+
+    /* ---------- Language switcher (Bootstrap 5.3 dropdown markup, vanilla JS) ---------- */
+    .lang-switcher { position: absolute; top: 10px; left: 12px; z-index: 40; }
+    .lang-toggle {
+      display: inline-flex; align-items: center;
+      min-width: 44px; min-height: 44px;           /* 44×44 touch target */
+      padding: 0; border: 0; background: none; cursor: pointer;
+      color: #94a3b8;                               /* same slate as Share icon */
+      -webkit-tap-highlight-color: transparent;
+    }
+    .lang-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      height: 32px; padding: 0 7px;
+      border-radius: 999px; background: transparent;
+      font-size: 13px; font-weight: 600; line-height: 1; letter-spacing: .02em; text-transform: uppercase;
+      transition: background-color .15s ease, color .15s ease;
+    }
+    .lang-chevron { transition: transform .15s ease; }
+    /* Very narrow phones (≤359px): tighten so the pill keeps clear of the avatar */
+    @media (max-width: 359px) { .lang-pill { gap: 3px; padding: 0 5px; } }
+    .lang-toggle[aria-expanded="true"] .lang-chevron { transform: rotate(180deg); }
+    .lang-toggle[aria-expanded="true"] .lang-pill { background: #f1f5f9; color: #334155; }
+    @media (hover: hover) { .lang-toggle:hover .lang-pill { background: #f1f5f9; color: #334155; } }
+    .lang-toggle:active .lang-pill { background: #e2e8f0; color: #334155; }
+    .lang-toggle:focus { outline: none; }
+    .lang-toggle:focus-visible .lang-pill { outline: 2px solid #0d9488; outline-offset: 2px; color: #334155; }
+
+    .lang-switcher .dropdown-menu {
+      position: absolute; top: calc(100% - 4px); left: 0;
+      min-width: 184px; margin: 0; padding: 8px; list-style: none;
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 12px 32px -8px rgba(15, 23, 42, .25), 0 0 0 1px rgba(15, 23, 42, .06);
+      opacity: 0; visibility: hidden;
+      transform: translateY(-4px) scale(.97); transform-origin: top left;
+      transition: opacity .15s ease, transform .15s ease, visibility 0s linear .15s;
+    }
+    .lang-switcher .dropdown-menu.show {
+      opacity: 1; visibility: visible; transform: none;
+      transition: opacity .15s ease, transform .15s ease, visibility 0s;
+    }
+    .lang-switcher .dropdown-item {
+      display: flex; align-items: center; gap: 10px;
+      width: 100%; min-height: 40px; padding: 0 10px;
+      border: 0; border-radius: 8px; background: none; cursor: pointer;
+      font-size: 14px; font-weight: 500; color: #1e293b; text-align: left;
+    }
+    .lang-switcher .dropdown-item:focus { outline: none; }
+    .lang-switcher .dropdown-item:focus-visible { outline: 2px solid #0d9488; outline-offset: -2px; background: #f1f5f9; }
+    @media (hover: hover) { .lang-switcher .dropdown-item:hover { background: #f1f5f9; } }
+    .lang-switcher .dropdown-item.active { font-weight: 600; }
+    .lang-switcher .dropdown-item .check { flex-shrink: 0; color: #0f766e; visibility: hidden; }
+    .lang-switcher .dropdown-item.active .check { visibility: visible; }
+    .lang-switcher .dropdown-item .code { margin-left: auto; font-size: 12px; font-weight: 600; color: #94a3b8; }
+
     @media (prefers-reduced-motion: reduce) { .rise { animation: none; } * { transition: none !important; } }
   </style>
 </head>
@@ -52,41 +119,55 @@
   <!-- Card -->
   <main class="rise relative w-full max-w-[400px] bg-white rounded-3xl shadow-2xl shadow-black/30 px-5 sm:px-7 pt-16 pb-6">
 
+    <!-- Language switcher (top-left corner of card, mirrors Share) -->
+    <div class="dropdown lang-switcher" id="lang-switcher">
+      <button id="lang-toggle" type="button" class="dropdown-toggle lang-toggle"
+        aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu"
+        data-i18n-attr="aria-label:lang.label+lang.current">
+        <span class="lang-pill">
+          <span data-icon="globe" data-size="14"></span>
+          <span id="lang-code"></span>
+          <span class="lang-chevron flex"><span data-icon="chevron" data-size="10"></span></span>
+        </span>
+      </button>
+      <ul id="lang-menu" class="dropdown-menu" role="menu" aria-labelledby="lang-toggle"></ul>
+    </div>
+
     <!-- Share (top-right corner of card) -->
-    <button id="share-btn" type="button" aria-label="Share this page"
+    <button id="share-btn" type="button" data-i18n-attr="aria-label:share.label;title:share.label"
       class="absolute top-3 right-3 w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 active:bg-slate-100 transition">
       <span data-icon="share" data-size="16"></span>
     </button>
 
     <!-- Avatar (overlaps the top edge) -->
     <div class="absolute -top-14 left-1/2 -translate-x-1/2">
-      <img id="profile-avatar" alt="" width="112" height="112"
+      <img id="profile-avatar" alt="" width="112" height="112" data-i18n-attr="alt:alt.avatar"
         class="w-28 h-28 rounded-full object-cover bg-slate-200 ring-4 ring-white shadow-lg" />
     </div>
 
     <!-- Profile -->
     <header class="text-center">
-      <h1 id="profile-name" class="text-[22px] leading-7 font-bold text-slate-900 tracking-tight"></h1>
+      <h1 id="profile-name" data-i18n="profile.name" class="text-[22px] leading-7 font-bold text-slate-900 tracking-tight"></h1>
       <p id="profile-handle" class="mt-0.5 text-[13px] font-medium text-teal-700"></p>
-      <p id="profile-bio" class="mt-3 text-[14px] leading-[1.6] text-slate-500"></p>
+      <p id="profile-bio" data-i18n="profile.bio" class="mt-3 text-[14px] leading-[1.6] text-slate-500"></p>
     </header>
 
     <!-- Primary CTA -->
     <a id="primary-cta"
-      class="mt-5 flex items-center justify-center gap-2 w-full h-12 rounded-full bg-black text-white text-[15px] font-semibold hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/25 active:scale-[0.98] transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2">
+      class="mt-5 flex items-center justify-center gap-2 w-full min-h-12 py-3 rounded-full bg-black text-white text-[15px] font-semibold hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/25 active:scale-[0.98] transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2">
       <span class="emoji text-base" id="primary-cta-emoji" aria-hidden="true"></span>
       <span id="primary-cta-label"></span>
     </a>
 
     <!-- Socials -->
-    <ul id="social-grid" class="mt-6 flex flex-wrap justify-center gap-y-4" aria-label="Social profiles and contacts"></ul>
+    <ul id="social-grid" class="mt-6 flex flex-wrap justify-center gap-y-4" data-i18n-attr="aria-label:aria.socials"></ul>
 
     <!-- Secondary links -->
-    <nav id="secondary-links" class="mt-6 flex flex-col gap-3" aria-label="Applications"></nav>
+    <nav id="secondary-links" class="mt-6 flex flex-col gap-3" data-i18n-attr="aria-label:aria.links"></nav>
 
     <!-- Footer -->
     <footer class="mt-6 text-center">
-      <p id="footer-text" class="text-xs text-slate-400"></p>
+      <p id="footer-text" data-i18n="footer.copyright" class="text-xs text-slate-400"></p>
     </footer>
   </main>
 
@@ -97,41 +178,37 @@
 
   <script>
     /* =================================================================
-     * ✏️  EDIT EVERYTHING HERE
+     * ✏️  EDIT LINKS HERE  (all visible text lives in i18n.js)
      * ================================================================= */
     const CONFIG = {
       profile: {
-        name: "Mirazim Ruzimurodov",
         handle: "@itsmirazim",
-        bio: "Man on the road. Brand Designer('21), Webster University‘27 (Int'l Relations/Econ), young entrepreneur, traveler, athlete. Speaks 5+ languages, badly. More👇🏻",
         avatarUrl: "avatar.jpg", // replace the file in this folder to change your photo
       },
 
       primaryCta: {
         emoji: "⚡",
-        label: "Telegram Blog",
+        key: "cta.telegramBlog",
         url: "https://t.me/mirazimblog",
       },
 
       // icon: behance | instagram | facebook | linkedin | x | telegram | phone | email
       socials: [
-        { label: "Behance",   icon: "behance",   url: "https://www.behance.net/itsmirazim" },
-        { label: "Instagram", icon: "instagram", url: "https://www.instagram.com/itsmirazim/" },
-        { label: "Facebook",  icon: "facebook",  url: "https://www.facebook.com/itsmirazim" },
-        { label: "LinkedIn",  icon: "linkedin",  url: "https://www.linkedin.com/in/itsmirazim/" },
-        { label: "X",         icon: "x",         url: "https://x.com/itsmirazim" },
-        { label: "Telegram",  icon: "telegram",  url: "https://t.me/itsmirazim" },
-        { label: "Phone",     icon: "phone",     url: "tel:+998908729535" },
-        { label: "Email",     icon: "email",     url: "mailto:mirazimruzimurod@gmail.com" },
+        { key: "social.behance",   icon: "behance",   url: "https://www.behance.net/itsmirazim" },
+        { key: "social.instagram", icon: "instagram", url: "https://www.instagram.com/itsmirazim/" },
+        { key: "social.facebook",  icon: "facebook",  url: "https://www.facebook.com/itsmirazim" },
+        { key: "social.linkedin",  icon: "linkedin",  url: "https://www.linkedin.com/in/itsmirazim/" },
+        { key: "social.x",         icon: "x",         url: "https://x.com/itsmirazim" },
+        { key: "social.telegram",  icon: "telegram",  url: "https://t.me/itsmirazim" },
+        { key: "social.phone",     icon: "phone",     url: "tel:+998908729535" },
+        { key: "social.email",     icon: "email",     url: "mailto:mirazimruzimurod@gmail.com" },
       ],
 
       links: [
-        { emoji: "🎨", label: "Create your own brand",     url: "https://docs.google.com/forms/d/1Sn5JaO76BXD6r_Ps9B0Yhod3MwLwv6ZHkB-zNtJZa-w/edit" },
-        { emoji: "✈️", label: "Apply for Work and Travel", url: "https://docs.google.com/forms/d/e/1FAIpQLScF1opXaAvNryrn5v6b6m0biiyPZJa0h43_Tm4xzjdXxw_JDQ/viewform" },
-        { emoji: "🇺🇸", label: "Apply for Green Card 2027", url: "https://docs.google.com/forms/d/e/1FAIpQLSdRhcBc4vnKRv6gHNBB6Sp3h4a_mUIhWRaMbS0IAt5jCuClEw/viewform?usp=header" },
+        { emoji: "🎨", key: "link.brand",      url: "https://docs.google.com/forms/d/1Sn5JaO76BXD6r_Ps9B0Yhod3MwLwv6ZHkB-zNtJZa-w/edit" },
+        { emoji: "✈️", key: "link.workTravel", url: "https://docs.google.com/forms/d/e/1FAIpQLScF1opXaAvNryrn5v6b6m0biiyPZJa0h43_Tm4xzjdXxw_JDQ/viewform" },
+        { emoji: "🇺🇸", key: "link.greenCard",  url: "https://docs.google.com/forms/d/e/1FAIpQLSdRhcBc4vnKRv6gHNBB6Sp3h4a_mUIhWRaMbS0IAt5jCuClEw/viewform?usp=header" },
       ],
-
-      footer: `© ${new Date().getFullYear()} Mirazim Ruzimurodov`,
     };
 
     /* =================================================================
@@ -148,6 +225,16 @@
       email:     ["0 0 512 512", "M48 64c-26.5 0-48 21.5-48 48 0 15.1 7.1 29.3 19.2 38.4l208 156c17.1 12.8 40.5 12.8 57.6 0l208-156c12.1-9.1 19.2-23.3 19.2-38.4 0-26.5-21.5-48-48-48L48 64zM0 196L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-188-198.4 148.8c-34.1 25.6-81.1 25.6-115.2 0L0 196z"],
       share:     ["0 0 512 512", "M384 192c53 0 96-43 96-96s-43-96-96-96-96 43-96 96c0 5.4 .5 10.8 1.3 16L159.6 184.1c-16.9-15-39.2-24.1-63.6-24.1-53 0-96 43-96 96s43 96 96 96c24.4 0 46.6-9.1 63.6-24.1L289.3 400c-.9 5.2-1.3 10.5-1.3 16 0 53 43 96 96 96s96-43 96-96-43-96-96-96c-24.4 0-46.6 9.1-63.6 24.1L190.7 272c.9-5.2 1.3-10.5 1.3-16s-.5-10.8-1.3-16l129.7-72.1c16.9 15 39.2 24.1 63.6 24.1z"],
     };
+
+    // Bootstrap Icons 1.13.2 (language switcher)
+    ICONS.globe   = ["0 0 16 16", "M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855q-.215.403-.395.872c.705.157 1.472.257 2.282.287zM4.249 3.539q.214-.577.481-1.078a7 7 0 0 1 .597-.933A7 7 0 0 0 3.051 3.05q.544.277 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9 9 0 0 1-1.565-.667A6.96 6.96 0 0 0 1.018 7.5zm1.4-2.741a12.3 12.3 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332M8.5 5.09V7.5h2.99a12.3 12.3 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.51 8.5c.035.987.176 1.914.399 2.741A13.6 13.6 0 0 1 7.5 10.91V8.5zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741zm-3.282 3.696q.18.469.395.872c.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.11 2.276a7 7 0 0 1-.598-.933 9 9 0 0 1-.481-1.079 8.4 8.4 0 0 0-1.198.49 7 7 0 0 0 2.276 1.522zm-1.383-2.964A13.4 13.4 0 0 1 3.508 8.5h-2.49a6.96 6.96 0 0 0 1.362 3.675c.47-.258.995-.482 1.565-.667m6.728 2.964a7 7 0 0 0 2.275-1.521 8.4 8.4 0 0 0-1.197-.49 9 9 0 0 1-.481 1.078 7 7 0 0 1-.597.933M8.5 11.909v3.014c.67-.204 1.335-.82 1.887-1.855q.216-.403.395-.872A12.6 12.6 0 0 0 8.5 11.91zm3.555-.401c.57.185 1.095.409 1.565.667A6.96 6.96 0 0 0 14.982 8.5h-2.49a13.4 13.4 0 0 1-.437 3.008M14.982 7.5a6.96 6.96 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008zM11.27 2.461q.266.502.482 1.078a8.4 8.4 0 0 0 1.196-.49 7 7 0 0 0-2.275-1.52c.218.283.418.597.597.932m-.488 1.343a8 8 0 0 0-.395-.872C9.835 1.897 9.17 1.282 8.5 1.077V4.09c.81-.03 1.577-.13 2.282-.287z"];
+    ICONS.chevron = ["0 0 16 16", "M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708", "evenodd"];
+    ICONS.check   = ["0 0 16 16", "M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"];
+
+    // Bootstrap Icons 1.13.2 (language switcher)
+    ICONS.globe   = ["0 0 16 16", "M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855q-.215.403-.395.872c.705.157 1.472.257 2.282.287zM4.249 3.539q.214-.577.481-1.078a7 7 0 0 1 .597-.933A7 7 0 0 0 3.051 3.05q.544.277 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9 9 0 0 1-1.565-.667A6.960 6.960 0 0 0 1.018 7.5zm1.4-2.741a12.3 12.3 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332M8.5 5.09V7.5h2.99a12.3 12.3 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.510 8.5c.035.987.176 1.914.399 2.741A13.6 13.6 0 0 1 7.5 10.91V8.5zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741zm-3.282 3.696q.18.469.395.872c.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.11 2.276a7 7 0 0 1-.598-.933 9 9 0 0 1-.481-1.079 8.4 8.4 0 0 0-1.198.49 7 7 0 0 0 2.276 1.522zm-1.383-2.964A13.4 13.4 0 0 1 3.508 8.5h-2.49a6.960 6.960 0 0 0 1.362 3.675c.47-.258.995-.482 1.565-.667m6.728 2.964a7 7 0 0 0 2.275-1.521 8.4 8.4 0 0 0-1.197-.49 9 9 0 0 1-.481 1.078 7 7 0 0 1-.597.933M8.5 11.909v3.014c.67-.204 1.335-.82 1.887-1.855q.216-.403.395-.872A12.6 12.6 0 0 0 8.5 11.91zm3.555-.401c.57.185 1.095.409 1.565.667A6.960 6.960 0 0 0 14.982 8.5h-2.49a13.4 13.4 0 0 1-.437 3.008M14.982 7.5a6.960 6.960 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008zM11.270 2.461q.266.502.482 1.078a8.4 8.4 0 0 0 1.196-.49 7 7 0 0 0-2.275-1.52c.218.283.418.597.597.932m-.488 1.343a8 8 0 0 0-.395-.872C9.835 1.897 9.170 1.282 8.5 1.077V4.090c.81-.03 1.577-.13 2.282-.287z"];
+    ICONS.chevron = ["0 0 16 16", "M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708", "evenodd"];
+    ICONS.check   = ["0 0 16 16", "M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"];
 
     function icon(name, size = 20) {
       const def = ICONS[name];
@@ -186,23 +273,26 @@
       );
     }
 
+
     /* ================================================================= */
+    const I18N = window.I18N;
+    const YEAR = new Date().getFullYear();
+    let currentLang = window.__LANG || I18N.defaultLang;
+    const t = (key, lang = currentLang) => I18N.t(key, lang, { year: YEAR });
+
     function render() {
-      const { profile, primaryCta, socials, links, footer } = CONFIG;
+      const { profile, primaryCta, socials, links } = CONFIG;
 
       // Profile
       const avatar = document.getElementById("profile-avatar");
-      avatar.alt = profile.name;
-      avatar.onerror = () => { avatar.onerror = null; avatar.src = initialsAvatar(profile.name); };
-      avatar.src = profile.avatarUrl || initialsAvatar(profile.name);
-      document.getElementById("profile-name").textContent = profile.name;
+      avatar.onerror = () => { avatar.onerror = null; avatar.src = initialsAvatar(t("profile.name", "en")); };
+      avatar.src = profile.avatarUrl || initialsAvatar(t("profile.name", "en"));
       document.getElementById("profile-handle").textContent = profile.handle;
-      document.getElementById("profile-bio").textContent = profile.bio;
 
       // Primary CTA
       setLink(document.getElementById("primary-cta"), primaryCta.url);
       document.getElementById("primary-cta-emoji").textContent = primaryCta.emoji;
-      document.getElementById("primary-cta-label").textContent = primaryCta.label;
+      document.getElementById("primary-cta-label").dataset.i18n = primaryCta.key;
 
       // Socials — 4 per row, remaining row centered
       const grid = document.getElementById("social-grid");
@@ -212,13 +302,12 @@
         li.className = "w-1/4 flex justify-center";
         const a = document.createElement("a");
         setLink(a, s.url);
-        a.setAttribute("aria-label", s.label);
         a.className = "group flex flex-col items-center gap-1.5 focus:outline-none";
         a.innerHTML = `
           <span class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center group-hover:scale-105 group-hover:shadow-lg group-active:scale-95 group-focus-visible:ring-2 group-focus-visible:ring-teal-600 group-focus-visible:ring-offset-2 transition duration-200">
             ${icon(s.icon, 20)}
           </span>
-          <span class="text-[11px] font-medium text-slate-500">${s.label}</span>`;
+          <span class="text-[11px] font-medium text-slate-500 text-center" data-i18n="${s.key}"></span>`;
         li.appendChild(a);
         grid.appendChild(li);
       });
@@ -232,34 +321,165 @@
         a.className = "flex items-center gap-3.5 w-full min-h-[56px] px-4 py-3 rounded-2xl bg-white border border-slate-200 text-left hover:border-slate-400 hover:-translate-y-0.5 hover:shadow-md active:bg-slate-50 active:scale-[0.99] transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600";
         a.innerHTML = `
           <span class="emoji text-[22px] w-7 text-center shrink-0" aria-hidden="true">${l.emoji}</span>
-          <span class="text-[15px] font-semibold text-slate-800">${l.label}</span>`;
+          <span class="text-[15px] font-semibold text-slate-800" data-i18n="${l.key}"></span>`;
         list.appendChild(a);
       });
 
-      document.getElementById("footer-text").textContent = footer;
+      // Language menu items (endonyms, no flags)
+      const menu = document.getElementById("lang-menu");
+      menu.innerHTML = I18N.supported.map((code) => `
+        <li role="none">
+          <button type="button" class="dropdown-item" role="menuitem" tabindex="-1" lang="${code}" data-lang="${code}">
+            <span class="check flex"><span data-icon="check" data-size="16"></span></span>
+            <span data-i18n="lang.${code}"></span>
+            <span class="code">${code.toUpperCase()}</span>
+          </button>
+        </li>`).join("");
+
       hydrateIcons();
     }
 
-    /* Share / copy link */
+    /* ---------- i18n: apply a language to the whole page ---------- */
+    function setMeta(selector, value) {
+      const el = document.querySelector(selector);
+      if (el) el.setAttribute("content", value);
+    }
+
+    function applyLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      // Text content
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        el.textContent = t(el.dataset.i18n);
+      });
+
+      // Attributes: "attr:key" pairs separated by ";" — "key+key2" joins with ". "
+      document.querySelectorAll("[data-i18n-attr]").forEach((el) => {
+        el.dataset.i18nAttr.split(";").forEach((pair) => {
+          const [attr, keys] = pair.split(":").map((s) => s.trim());
+          if (attr && keys) el.setAttribute(attr, keys.split("+").map((k) => t(k)).join(". "));
+        });
+      });
+
+      // Document title + meta tags
+      document.title = t("meta.title");
+      setMeta('meta[name="description"]', t("profile.bio"));
+      setMeta('meta[property="og:title"]', t("meta.title"));
+      setMeta('meta[property="og:description"]', t("profile.bio"));
+      setMeta('meta[property="og:locale"]', I18N.ogLocale[lang]);
+
+      // Switcher state
+      document.getElementById("lang-code").textContent = lang.toUpperCase();
+      document.querySelectorAll("#lang-menu .dropdown-item").forEach((item) => {
+        const active = item.dataset.lang === lang;
+        item.classList.toggle("active", active);
+        if (active) item.setAttribute("aria-current", "true");
+        else item.removeAttribute("aria-current");
+      });
+    }
+
+    function setLang(lang) {
+      if (!I18N.supported.includes(lang)) return;
+      applyLang(lang);
+      try { localStorage.setItem(I18N.storageKey, lang); } catch (e) { /* storage blocked */ }
+      try {
+        const url = new URL(location.href);
+        url.searchParams.set("lang", lang);
+        history.replaceState(history.state, "", url);
+      } catch (e) { /* file:// or sandboxed */ }
+    }
+
+    /* ---------- Language dropdown (Bootstrap 5.3 pattern, vanilla JS) ---------- */
+    function initLangDropdown() {
+      const root = document.getElementById("lang-switcher");
+      const toggle = document.getElementById("lang-toggle");
+      const menu = document.getElementById("lang-menu");
+      const items = () => [...menu.querySelectorAll(".dropdown-item")];
+      const isOpen = () => menu.classList.contains("show");
+
+      function open(focus) {
+        menu.classList.add("show");
+        toggle.setAttribute("aria-expanded", "true");
+        if (focus) {
+          const list = items();
+          const target = focus === "last" ? list[list.length - 1]
+            : (list.find((i) => i.classList.contains("active")) || list[0]);
+          target.focus();
+        }
+      }
+      function close(returnFocus) {
+        if (!isOpen()) return;
+        menu.classList.remove("show");
+        toggle.setAttribute("aria-expanded", "false");
+        if (returnFocus) toggle.focus();
+      }
+
+      // Mouse/touch click, or Enter/Space (keyboard clicks have detail === 0)
+      toggle.addEventListener("click", (e) => {
+        if (isOpen()) close(false);
+        else open(e.detail === 0 ? "active" : null);
+      });
+
+      toggle.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") { e.preventDefault(); open("active"); }
+        else if (e.key === "ArrowUp") { e.preventDefault(); open("last"); }
+        else if (e.key === "Escape") { close(true); }
+      });
+
+      menu.addEventListener("keydown", (e) => {
+        const list = items();
+        const idx = list.indexOf(document.activeElement);
+        switch (e.key) {
+          case "ArrowDown": e.preventDefault(); list[(idx + 1) % list.length].focus(); break;
+          case "ArrowUp":   e.preventDefault(); list[(idx - 1 + list.length) % list.length].focus(); break;
+          case "Home":      e.preventDefault(); list[0].focus(); break;
+          case "End":       e.preventDefault(); list[list.length - 1].focus(); break;
+          case "Escape":    e.preventDefault(); close(true); break;
+          case "Tab":       close(false); break;
+        }
+      });
+
+      menu.addEventListener("click", (e) => {
+        const item = e.target.closest(".dropdown-item");
+        if (!item) return;
+        setLang(item.dataset.lang);
+        close(true);
+      });
+
+      // Click/tap outside closes the menu
+      document.addEventListener("pointerdown", (e) => {
+        if (isOpen() && !root.contains(e.target)) close(false);
+      });
+      // Focus leaving the switcher (e.g. Tab) closes it
+      root.addEventListener("focusout", (e) => {
+        if (isOpen() && !root.contains(e.relatedTarget)) close(false);
+      });
+    }
+
+    /* ---------- Share / copy link ---------- */
     function showToast(msg) {
-      const t = document.getElementById("toast");
-      t.textContent = msg;
-      t.classList.remove("opacity-0", "translate-y-4");
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.remove("opacity-0", "translate-y-4");
       clearTimeout(showToast.timer);
-      showToast.timer = setTimeout(() => t.classList.add("opacity-0", "translate-y-4"), 2400);
+      showToast.timer = setTimeout(() => el.classList.add("opacity-0", "translate-y-4"), 2400);
     }
 
     async function share() {
+      const data = { title: t("meta.title"), text: t("share.text"), url: location.href };
       if (navigator.share) {
-        try { await navigator.share({ title: CONFIG.profile.name, url: location.href }); return; }
+        try { await navigator.share(data); return; }
         catch (e) { if (e.name === "AbortError") return; }
       }
-      try { await navigator.clipboard.writeText(location.href); showToast("Link copied!"); }
+      try { await navigator.clipboard.writeText(location.href); showToast(t("share.copied")); }
       catch { showToast(location.href); }
     }
 
     document.getElementById("share-btn").addEventListener("click", share);
     render();
+    applyLang(currentLang);
+    initLangDropdown();
   </script>
 </body>
 </html>
